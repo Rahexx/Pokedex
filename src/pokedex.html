@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokedex</title>
+  </head>
+  <body>
+    <header class="imgContainer">
+      <img
+        src="./assets/pokemonLogo.png"
+        alt="Pokemon logo"
+        class="imgContainer__logo"
+      />
+    </header>
+    <nav class="nav">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a class="nav__hyperlink" href="./index.html">Strona główna</a>
+        </li>
+        <li class="nav__item">
+          <a class="nav__hyperlink nav__hyperlink--active" href="#">Pokedex</a>
+        </li>
+        <li class="nav__item"><a class="nav__hyperlink" href="./team.html">Twoja drużyna</a></a></li>
+      </ul>
+    </nav>
+    <main class="pokedexHolder">
+      <h1 class="pokedexHolder__ heading">Wyszukaj pokemona</h1>
+      <form class="pokedexHolder__form">
+        <input type="text" class="PokedexHolder__input" />
+      </form>
+      <ul class="pokedexHolder__pokemonList"></ul>
+    </main>
+  </body>
+</html>
