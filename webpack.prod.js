@@ -30,6 +30,26 @@ module.exports = merge(common, {
           removeComments: true,
         },
       }),
+      new HtmlWebpackPlugin({
+        filename: 'pokedex.html',
+        template: './src/pokedex.html',
+        minify: {
+          removeAttributeQuotes: true,
+          collapseWhitespace: true,
+          removeComments: true,
+        },
+        chunks: ['main'],
+      }),
+      new HtmlWebpackPlugin({
+        filename: 'team.html',
+        template: './src/team.html',
+        minify: {
+          removeAttributeQuotes: true,
+          collapseWhitespace: true,
+          removeComments: true,
+        },
+        chunks: ['main'],
+      }),
     ],
   },
   module: {
