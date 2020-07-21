@@ -1,32 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Twoja drużyna</title>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="teamContainer">
     <header class="imgContainer">
-        <img
-          src="./assets/pokemonLogo.png"
-          alt="Pokemon logo"
-          class="imgContainer__logo"
-        />
-      </header>
-      <nav class="nav">
-        <ul class="nav__list">
-          <li class="nav__item">
-            <a class="nav__hyperlink" href="./index.html">Strona główna</a>
-          </li>
-          <li class="nav__item">
-            <a class="nav__hyperlink" href="./pokedex.html">Pokedex</a>
-          </li>
-          <li class="nav__item"><a class="nav__hyperlink nav__hyperlink--active" href="#">Twoja drużyna</a></a></li>
-        </ul>
-      </nav>
-      <main class="team">
-        <h1 class="team__heading">Twoja drużyna</h1>
-        <ul class="team__pokemonList"></ul>
-      </main>
-</body>
+      <img
+        src="./assets/pokemonLogo.png"
+        alt="Pokemon logo"
+        class="imgContainer__logo"
+      />
+    </header>
+    <nav class="nav">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a class="nav__hyperlink" href="./index.html"
+            ><i class="fas fa-home nav__itemImage"></i
+            ><span class="nav__itemText">Strona główna</span></a
+          >
+        </li>
+        <li class="nav__item">
+          <a class="nav__hyperlink" href="./pokedex.html"
+            ><i class="fas fa-search nav__itemImage"></i
+            ><span class="nav__itemText">Pokedex</span></a
+          >
+        </li>
+        <li class="nav__item">
+          <a class="nav__hyperlink nav__hyperlink--active" href="#"
+            ><i class="fas fa-users nav__itemImage"></i
+            ><span class="nav__itemText">Twoja drużyna</span></a
+          >
+        </li>
+      </ul>
+    </nav>
+    <main class="team">
+      <h1 class="team__heading">Twoja drużyna</h1>
+      <ul class="team__pokemonList"></ul>
+    </main>
+  </body>
 </html>
