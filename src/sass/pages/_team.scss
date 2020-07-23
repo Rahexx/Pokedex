@@ -1,0 +1,18 @@
+.teamContainer {
+  height: 90vh;
+  display: grid;
+  grid-template: 30vh 1fr / 100vw;
+  overflow: hidden;
+  font-family: 'Lato', sans-serif;
+  background-color: #f4f2f2;
+}
+
+.team {
+  display: grid;
+  grid-template: 10vh 1fr / 100vw;
+  &__heading {
+    justify-self: center;
+    align-self: end;
+    font-size: 30px;
+  }
+}
