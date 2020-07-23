@@ -4,7 +4,10 @@
   grid-template: 30vh 1fr / 100vw;
   overflow: hidden;
   font-family: 'Lato', sans-serif;
-  background-color: #e1dada;
+  background-color: #f4f2f2;
+  @include mq(small) {
+    height: 100vh;
+  }
 }
 
 .pokemonRandom {
@@ -31,5 +34,9 @@
     border-radius: 10px;
     outline: none;
     box-shadow: 0 0 15px #3d7dca;
+    @include mq(small) {
+      height: 15vh;
+      width: 22vw;
+    }
   }
 }

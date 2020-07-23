@@ -5,19 +5,31 @@
   overflow: hidden;
   font-family: 'Lato', sans-serif;
   background-color: #f4f2f2;
+  @include mq(small) {
+    height: 100vh;
+  }
 }
 
 .pokedexHolder {
   display: grid;
   grid-template: 10vh 10vh 1fr / 100vw;
+  @include mq(small) {
+    grid-template: 1fr 1fr 20vh/ 100vw;
+  }
   &__heading {
     justify-self: center;
     align-self: end;
     font-size: 30px;
+    @include mq(small) {
+      align-self: center;
+    }
   }
   &__form {
     justify-self: center;
     align-self: center;
+    @include mq(small) {
+      align-self: start;
+    }
   }
   &__input {
     height: 3vh;
@@ -27,9 +39,43 @@
     border-radius: 5px;
     outline: none;
     transition: 0.3s;
+    @include mq(small) {
+      width: 35vw;
+    }
     &:focus {
       border-color: #ffde00;
       box-shadow: 0 0 15px #3b4cca;
     }
+  }
+  &__showDirection {
+    display: none;
+    @include mq(small) {
+      display: inline-block;
+      justify-self: center;
+      align-self: start;
+      font-size: 40px;
+      color: #cc0000;
+      animation-name: moveDown;
+      animation-duration: 2s;
+      animation-iteration-count: infinite;
+    }
+  }
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateY(5vh);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(0);
   }
 }

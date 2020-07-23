@@ -10,9 +10,15 @@
 .team {
   display: grid;
   grid-template: 10vh 1fr / 100vw;
+  @include mq(small) {
+    grid-template: 20vh 1fr / 100vw;
+  }
   &__heading {
     justify-self: center;
     align-self: end;
     font-size: 30px;
+    @include mq(small) {
+      align-self: center;
+    }
   }
 }
