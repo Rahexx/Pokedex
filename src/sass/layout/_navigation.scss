@@ -4,7 +4,7 @@
   right: 0;
   width: 100vw;
   height: 10vh;
-  background-color: #3b4cca;
+  background-color: #1f35c4;
   z-index: 1;
   @include mq(small) {
     right: 0;
@@ -37,13 +37,13 @@
     text-decoration: none;
     &--active > i,
     &--active > span {
-      color: #ffde00;
+      color: #ffff00;
     }
   }
   &__itemImage {
     width: 100%;
     text-align: center;
-    font-size: 22px;
+    font-size: 26px;
     color: #e8e8e8;
   }
   &__itemText {

@@ -4,7 +4,7 @@
   grid-template: 30vh 1fr / 100vw;
   overflow: hidden;
   font-family: 'Lato', sans-serif;
-  background-color: #f4f2f2;
+  background-color: #3b4cca;
   @include mq(small) {
     height: 100vh;
   }
@@ -43,8 +43,8 @@
       width: 35vw;
     }
     &:focus {
-      border-color: #ffde00;
-      box-shadow: 0 0 15px #3b4cca;
+      border-color: #db2020;
+      box-shadow: 0 0 32px #fff200;
     }
   }
   &__showDirection {
