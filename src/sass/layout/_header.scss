@@ -3,12 +3,17 @@
   justify-content: center;
   align-items: flex-end;
   @include mq(small) {
-    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  @include mq(medium) {
+    align-items: center;
+  }
+  @include mq(large) {
     align-items: flex-start;
   }
   &__logo {
     @include mq(small) {
-      transform: scale(0.7) translate(-15%, -15%);
+      transform: scale(0.8);
     }
   }
 }

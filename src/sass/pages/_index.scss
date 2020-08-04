@@ -4,14 +4,28 @@
   grid-template: 30vh 1fr / 100vw;
   overflow: hidden;
   font-family: 'Lato', sans-serif;
-  background-color: #3b4cca;
+  background-color: #f4f2f2;
   @include mq(small) {
     height: 100vh;
+    grid-template: 30vh 1fr / 88vw;
+  }
+  @include mq(medium) {
+    grid-template: 20vh 10vh 1fr / 100vw;
+  }
+  @include mq(large) {
+    height: 100vh;
+    grid-template: 30vh 1fr / 88vw;
   }
 }
 
 .pokemonRandom {
   position: relative;
+  @include mq(medium) {
+    grid-row-start: 3;
+  }
+  @include mq(large) {
+    grid-row-start: 2;
+  }
   &__pokeball {
     position: absolute;
     top: 0;
@@ -29,14 +43,24 @@
     font-size: 20px;
     transform: translate(-50%, -50%);
     text-transform: uppercase;
-    color: white;
-    background-color: #db2020;
+    color: #ffff00;
+    background-color: #1f35c4;
     border-radius: 10px;
     outline: none;
-    box-shadow: 0 0 15px #fff200;
+    box-shadow: 0 0 25px #3d7dca;
     @include mq(small) {
       height: 15vh;
       width: 22vw;
+    }
+    @include mq(medium) {
+      height: 6vh;
+      width: 25vw;
+      font-size: 26px;
+    }
+    @include mq(large) {
+      height: 15vh;
+      width: 22vw;
+      font-size: 20px;
     }
   }
 }

@@ -4,21 +4,38 @@
   grid-template: 30vh 1fr / 100vw;
   overflow: hidden;
   font-family: 'Lato', sans-serif;
-  background-color: #3b4cca;
+  background-color: #f4f2f2;
+  @include mq(small) {
+    height: 100vh;
+    grid-template: 30vh 1fr / 88vw;
+  }
+  @include mq(medium) {
+    grid-template: 20vh 10vh 1fr / 100vw;
+  }
+  @include mq(large) {
+    grid-template: 30vh 1fr / 88vw;
+  }
 }
 
 .team {
   display: grid;
   grid-template: 10vh 1fr / 100vw;
   @include mq(small) {
+    grid-template: 20vh 1fr / 88vw;
+  }
+  @include mq(medium) {
     grid-template: 20vh 1fr / 100vw;
+  }
+  @include mq(large) {
+    grid-template: 20vh 1fr / 88vw;
   }
   &__heading {
     justify-self: center;
     align-self: end;
     font-size: 30px;
     @include mq(small) {
-      align-self: center;
+      margin-top: 20px;
+      align-self: flex-end;
     }
   }
 }
