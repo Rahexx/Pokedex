@@ -10,21 +10,24 @@
     grid-template: 30vh 1fr / 88vw;
   }
   @include mq(medium) {
-    grid-template: 20vh 10vh 1fr / 100vw;
+    grid-template: 30vh 1fr 10vh/ 100vw;
   }
   @include mq(large) {
     height: 100vh;
     grid-template: 30vh 1fr / 88vw;
   }
+  @include mq(extra-large) {
+    grid-template: 40vh 1fr / 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    background-color: #f4f2f2;
+  }
 }
 
 .pokemonRandom {
   position: relative;
-  @include mq(medium) {
-    grid-row-start: 3;
-  }
-  @include mq(large) {
-    grid-row-start: 2;
+  @include mq(extra-large) {
+    background-color: #e2e2e2;
   }
   &__pokeball {
     position: absolute;
@@ -43,24 +46,35 @@
     font-size: 20px;
     transform: translate(-50%, -50%);
     text-transform: uppercase;
-    color: #ffff00;
-    background-color: #1f35c4;
+    color: #ffffff;
+    background-color: #3f51b5;
     border-radius: 10px;
     outline: none;
-    box-shadow: 0 0 25px #3d7dca;
+    box-shadow: 0 0 25px 10px #3f51b5;
     @include mq(small) {
       height: 15vh;
       width: 22vw;
     }
     @include mq(medium) {
-      height: 6vh;
-      width: 25vw;
-      font-size: 26px;
+      height: 8vh;
+      width: 28vw;
+      font-size: 30px;
     }
     @include mq(large) {
       height: 15vh;
       width: 22vw;
       font-size: 20px;
+    }
+    @include mq(extra-large) {
+      height: 75px;
+      width: 200px;
+      font-size: 26px;
+      box-shadow: none;
+      cursor: pointer;
+      transition: 0.5s;
+    }
+    &:hover {
+      box-shadow: 0 0 25px 10px #3f51b5;
     }
   }
 }

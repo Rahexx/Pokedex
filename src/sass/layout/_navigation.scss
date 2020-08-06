@@ -4,21 +4,28 @@
   right: 0;
   width: 100vw;
   height: 10vh;
-  background-color: #1f35c4;
+  background-color: #303f9f;
   z-index: 1;
   @include mq(small) {
     width: 12vw;
     height: 100vh;
   }
   @include mq(medium) {
-    bottom: 70vh;
     width: 100vw;
     height: 10vh;
+    overflow: hidden;
   }
   @include mq(large) {
-    bottom: 0;
     width: 12vw;
     height: 100vh;
+  }
+  @include mq(extra-large) {
+    bottom: 90vh;
+    right: 8vw;
+    width: 25vw;
+    height: 7vh;
+    margin-top: 10px;
+    background-color: transparent;
   }
   &__list {
     width: 100%;
@@ -30,11 +37,12 @@
     }
     @include mq(medium) {
       flex-direction: row;
-      justify-content: space-evenly;
     }
     @include mq(large) {
       flex-direction: column-reverse;
-      justify-content: space-around;
+    }
+    @include mq(extra-large) {
+      flex-direction: row;
     }
   }
   &__item {
@@ -52,6 +60,10 @@
       width: 100%;
       height: 30%;
     }
+    @include mq(extra-large) {
+      width: 30%;
+      height: 100%;
+    }
   }
   &__hyperlink {
     height: 100%;
@@ -60,24 +72,23 @@
     justify-content: space-evenly;
     align-items: center;
     text-decoration: none;
-    @include mq(medium) {
-      flex-direction: row;
-      justify-content: center;
-    }
-    @include mq(large) {
-      flex-direction: column;
-      justify-content: space-evenly;
+    &:hover > i,
+    &:hover > span {
+      color: #303f9f;
     }
     &--active > i,
     &--active > span {
-      color: #ffff00;
+      color: #ffeb3b;
+      @include mq(extra-large) {
+        color: #303f9f;
+      }
     }
   }
   &__itemImage {
     width: 100%;
     text-align: center;
     font-size: 26px;
-    color: #e8e8e8;
+    color: #ffffff;
     @include mq(medium) {
       width: 30%;
       font-size: 35px;
@@ -86,31 +97,26 @@
       width: 100%;
       font-size: 26px;
     }
+    @include mq(extra-large) {
+      color: #212121;
+    }
   }
   &__itemText {
     width: 100%;
     font-size: 12px;
     text-align: center;
     text-transform: uppercase;
-    color: #e8e8e8;
+    color: #ffffff;
     @include mq(medium) {
       width: 70%;
       font-size: 18px;
-      text-align: start;
     }
     @include mq(large) {
       width: 100%;
       font-size: 12px;
-      text-align: center;
     }
-  }
-}
-
-.pokedexItem {
-  @include mq(medium) {
-    padding: 0 4vw;
-  }
-  @include mq(large) {
-    padding: 0;
+    @include mq(extra-large) {
+      color: #212121;
+    }
   }
 }

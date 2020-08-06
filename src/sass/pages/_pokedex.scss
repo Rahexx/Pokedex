@@ -10,27 +10,30 @@
     grid-template: 30vh 1fr / 88vw;
   }
   @include mq(medium) {
-    grid-template: 20vh 10vh 1fr / 100vw;
+    grid-template: 30vh 1fr 10vh/ 100vw;
   }
   @include mq(large) {
     grid-template: 30vh 1fr / 88vw;
+  }
+  @include mq(extra-large) {
+    grid-template: 40vh 1fr / 100%;
+    max-width: 1600px;
+    margin: 0 auto;
   }
 }
 
 .pokedexHolder {
   display: grid;
   grid-template: 10vh 10vh 1fr / 100vw;
+  margin-top: 100px;
   @include mq(small) {
     grid-template: 1fr 1fr 20vh/ 88vw;
   }
   @include mq(medium) {
-    margin-top: 50px;
-    grid-row-start: 3;
     grid-template: 10vh 10vh 1fr / 100vw;
   }
   @include mq(large) {
     margin-top: 0;
-    grid-row-start: 2;
     grid-template: 1fr 1fr 20vh/ 88vw;
   }
   &__heading {
@@ -69,8 +72,8 @@
       font-size: 16px;
     }
     &:focus {
-      border-color: #ffde00;
-      box-shadow: 0 0 32px #3b4cca;
+      border-color: #757575;
+      box-shadow: 0 0 32px #3f51b5;
     }
   }
   &__showDirection {
@@ -86,6 +89,7 @@
       animation-iteration-count: infinite;
     }
     @include mq(medium) {
+      display: none;
       margin-bottom: 7vh;
       align-self: flex-end;
     }

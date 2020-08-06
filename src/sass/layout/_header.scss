@@ -11,9 +11,32 @@
   @include mq(large) {
     align-items: flex-start;
   }
+  @include mq(extra-large) {
+    position: relative;
+  }
+  &__background {
+    display: none;
+    @include mq(extra-large) {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+  }
   &__logo {
     @include mq(small) {
       transform: scale(0.8);
+    }
+    @include mq(medium) {
+      transform: scale(1.5);
+    }
+    @include mq(large) {
+      transform: scale(0.8);
+    }
+    @include mq(extra-large) {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      transform: scale(1);
     }
   }
 }

@@ -10,10 +10,15 @@
     grid-template: 30vh 1fr / 88vw;
   }
   @include mq(medium) {
-    grid-template: 20vh 10vh 1fr / 100vw;
+    grid-template: 30vh 1fr 10vh/ 100vw;
   }
   @include mq(large) {
     grid-template: 30vh 1fr / 88vw;
+  }
+  @include mq(extra-large) {
+    grid-template: 40vh 1fr / 100%;
+    max-width: 1600px;
+    margin: 0 auto;
   }
 }
 
@@ -24,7 +29,7 @@
     grid-template: 20vh 1fr / 88vw;
   }
   @include mq(medium) {
-    grid-template: 20vh 1fr / 100vw;
+    grid-template: 10vh 1fr / 100vw;
   }
   @include mq(large) {
     grid-template: 20vh 1fr / 88vw;
