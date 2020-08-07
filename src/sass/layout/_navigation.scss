@@ -21,7 +21,7 @@
   }
   @include mq(extra-large) {
     bottom: 90vh;
-    right: 8vw;
+    right: 2vw;
     width: 25vw;
     height: 7vh;
     margin-top: 10px;
@@ -98,7 +98,8 @@
       font-size: 26px;
     }
     @include mq(extra-large) {
-      color: #212121;
+      color: #ff5252;
+      transition: 0.3s;
     }
   }
   &__itemText {
@@ -116,7 +117,8 @@
       font-size: 12px;
     }
     @include mq(extra-large) {
-      color: #212121;
+      color: #ff5252;
+      transition: 0.3s;
     }
   }
 }

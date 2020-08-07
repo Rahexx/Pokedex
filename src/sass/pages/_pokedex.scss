@@ -16,8 +16,8 @@
     grid-template: 30vh 1fr / 88vw;
   }
   @include mq(extra-large) {
-    grid-template: 40vh 1fr / 100%;
-    max-width: 1600px;
+    grid-template: 60vh 1fr / 100%;
+    max-width: 2000px;
     margin: 0 auto;
   }
 }
@@ -25,7 +25,7 @@
 .pokedexHolder {
   display: grid;
   grid-template: 10vh 10vh 1fr / 100vw;
-  margin-top: 100px;
+  margin-top: 10px;
   @include mq(small) {
     grid-template: 1fr 1fr 20vh/ 88vw;
   }
@@ -35,6 +35,9 @@
   @include mq(large) {
     margin-top: 0;
     grid-template: 1fr 1fr 20vh/ 88vw;
+  }
+  @include mq(extra-large) {
+    grid-template: 10vh 10vh 1fr / 100vw;
   }
   &__heading {
     justify-self: center;
@@ -71,6 +74,10 @@
       height: 3vh;
       font-size: 16px;
     }
+    @include mq(extra-large) {
+      width: 17vw;
+      font-size: 16px;
+    }
     &:focus {
       border-color: #757575;
       box-shadow: 0 0 32px #3f51b5;
@@ -94,6 +101,7 @@
       align-self: flex-end;
     }
     @include mq(large) {
+      display: inline-block;
       margin-bottom: 0;
       align-self: start;
     }

@@ -13,14 +13,10 @@
   }
   @include mq(extra-large) {
     position: relative;
-  }
-  &__background {
-    display: none;
-    @include mq(extra-large) {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-    }
+    background-image: url('../assets/header.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   &__logo {
     @include mq(small) {
@@ -34,9 +30,35 @@
     }
     @include mq(extra-large) {
       position: absolute;
-      top: 10px;
-      left: 15px;
+      top: 3vh;
+      left: 2vw;
+      max-width: 20vw;
+      max-height: 20vw;
       transform: scale(1);
+    }
+  }
+  &__header {
+    display: none;
+    @include mq(extra-large) {
+      position: absolute;
+      display: inline-block;
+      top: 50%;
+      left: 2vw;
+      width: 40vw;
+      font-size: 42px;
+      color: #212121;
+    }
+  }
+  &__text {
+    display: none;
+    @include mq(extra-large) {
+      position: absolute;
+      display: inline-block;
+      top: 67%;
+      left: 2vw;
+      width: 30vw;
+      font-size: 20px;
+      color: #303f9f;
     }
   }
 }

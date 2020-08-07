@@ -16,15 +16,15 @@
     grid-template: 30vh 1fr / 88vw;
   }
   @include mq(extra-large) {
-    grid-template: 40vh 1fr / 100%;
-    max-width: 1600px;
-    margin: 0 auto;
+    grid-template: 60vh 1fr / 100%;
+    max-width: 2000px;
   }
 }
 
 .team {
   display: grid;
   grid-template: 10vh 1fr / 100vw;
+  margin-top: 50px;
   @include mq(small) {
     grid-template: 20vh 1fr / 88vw;
   }
@@ -34,13 +34,21 @@
   @include mq(large) {
     grid-template: 20vh 1fr / 88vw;
   }
+  @include mq(extra-large) {
+    grid-template: 1fr / 100vw;
+  }
   &__heading {
     justify-self: center;
-    align-self: end;
+    text-align: center;
     font-size: 30px;
     @include mq(small) {
       margin-top: 20px;
       align-self: flex-end;
+    }
+    @include mq(extra-large) {
+      align-self: center;
+      font-size: 38px;
+      color: #212121;
     }
   }
 }
