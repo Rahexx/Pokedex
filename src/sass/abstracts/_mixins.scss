@@ -23,3 +23,23 @@ $breakpoints: (
     @error '"#{$breakpoint}" - Nie rozpoznaje tej wielkości';
   }
 }
+
+@mixin animateArrow() {
+  @keyframes moveDown {
+    0% {
+      transform: translateY(0);
+    }
+
+    25% {
+      transform: translateY(5vh);
+    }
+
+    50% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
