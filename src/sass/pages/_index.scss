@@ -34,6 +34,18 @@
     top: 0;
     left: 50vw;
     transform: translate(-50%, -50%) scale(0);
+    @include mq(small) {
+      left: calc(90vw / 2);
+    }
+    @include mq(medium) {
+      left: 50vw;
+    }
+    @include mq(large) {
+      left: calc(90vw / 2);
+    }
+    @include mq(extra-large) {
+      left: 50vw;
+    }
   }
   &__randomButton {
     position: absolute;
@@ -96,6 +108,18 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  @include mq(small) {
+    margin-top: 15vh;
+  }
+  @include mq(medium) {
+    margin-top: 5vh;
+  }
+  @include mq(large) {
+    margin-top: 15vh;
+  }
+  @include mq(extra-large) {
+    margin-top: 5vh;
+  }
   &__name {
     display: inline-block;
     width: 100vw;
@@ -103,6 +127,18 @@
     text-transform: uppercase;
     font-size: 30px;
     color: #212121;
+    @include mq(small) {
+      width: 90vw;
+    }
+    @include mq(medium) {
+      width: 100vw;
+    }
+    @include mq(large) {
+      width: 90vw;
+    }
+    @include mq(extra-large) {
+      width: 100vw;
+    }
   }
   &__pokemon {
     height: 30vh;
