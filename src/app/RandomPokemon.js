@@ -5,6 +5,8 @@ class RandomPokemon {
     this.name = '';
     this.sourceImagePokemon = '';
     this.isAnimationEnd = false;
+    this.types = [];
+    this.abilities = [];
   }
 
   getName() {
@@ -31,6 +33,26 @@ class RandomPokemon {
     this.isAnimationEnd = isEnd;
   }
 
+  getTypes() {
+    return this.types;
+  }
+
+  getAbilities() {
+    return this.abilities;
+  }
+
+  pushAbilities(ability) {
+    for (let i = 0; i < ability.length; i++) {
+      this.abilities.push(ability[i].ability.name);
+    }
+  }
+
+  pushType(types) {
+    for (let i = 0; i < types.length; i++) {
+      this.types.push(types[i].type.name);
+    }
+  }
+
   animateArrow() {
     const arrow = document.querySelector('.pokemonRandom__showDirection');
     arrow.style.cssText =
@@ -39,7 +61,6 @@ class RandomPokemon {
 
   speakName() {
     const msg = new SpeechSynthesisUtterance(`Wybieram Cię ${this.getName()}`);
-    const voices = window.speechSynthesis.getVoices();
     window.speechSynthesis.speak(msg);
   }
 
@@ -51,7 +72,7 @@ class RandomPokemon {
     gsap.to('.pokemonContainer__name', { scale: 1, duration: 1 });
   }
 
-  createImagePokemon(srcImg) {
+  createImagePokemon() {
     const img = document.createElement('img');
 
     img.src = this.getSourceImagePokemon();
@@ -82,7 +103,7 @@ class RandomPokemon {
 
     main.appendChild(div);
     main.innerHTML +=
-      '      <i class="fas fa-arrow-circle-down pokemonRandom__showDirection"></i>';
+      '<i class="fas fa-arrow-circle-down pokemonRandom__showDirection"></i>';
 
     this.showName();
     this.showPokemon();
@@ -95,9 +116,9 @@ class RandomPokemon {
     const mainWidth = main.offsetWidth;
 
     const jumpHeight =
-      mainWidth > 500 && mainWidth < 1024 && mainWidth != 768 ? '75%' : '25vh';
+      mainWidth > 500 && mainWidth < 1024 && mainWidth !== 768 ? '75%' : '25vh';
 
-    let tl = gsap.timeline();
+    const tl = gsap.timeline();
 
     tl.to('.pokemonRandom__randomButton', { scale: 1.2, duration: 0.5 })
       .to('.pokemonRandom__randomButton', { scale: 0, duration: 1 })
@@ -137,6 +158,8 @@ class RandomPokemon {
       .then((res) => {
         this.setSourceImagePokemon(res.sprites.front_default);
         this.setName(res.name);
+        this.pushType(res.types);
+        this.pushAbilities(res.abilities);
 
         const intervalId = setInterval(() => {
           if (this.isAnimationEnd) {
@@ -149,4 +172,4 @@ class RandomPokemon {
 }
 
 export default RandomPokemon;
-//module.exports = RandomPokemon;
+// module.exports = RandomPokemon;
