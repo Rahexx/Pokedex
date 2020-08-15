@@ -89,16 +89,6 @@
       box-shadow: 0 0 25px 10px #3f51b5;
     }
   }
-  &__showDirection {
-    position: absolute;
-    bottom: 7vh;
-    left: 0;
-    right: 0;
-    text-align: center;
-    display: inline-block;
-    font-size: 40px;
-    color: #cc0000;
-  }
 }
 
 .pokemonContainer {
@@ -146,6 +136,27 @@
     margin-top: 2vh;
     align-self: center;
   }
+}
+
+.informationHolder {
+  position: relative;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  grid-row: 3 / 4;
+  text-align: center;
+}
+
+.showDirection {
+  position: absolute;
+  bottom: 7vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  display: inline-block;
+  font-size: 40px;
+  color: #cc0000;
 }
 
 @include animateArrow;

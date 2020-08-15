@@ -1,7 +1,9 @@
 import { gsap } from 'gsap';
+import Evolution from './Evolution';
 
-class RandomPokemon {
+class RandomPokemon extends Evolution {
   constructor() {
+    super();
     this.name = '';
     this.sourceImagePokemon = '';
     this.isAnimationEnd = false;
@@ -54,9 +56,8 @@ class RandomPokemon {
   }
 
   animateArrow() {
-    const arrow = document.querySelector('.pokemonRandom__showDirection');
-    arrow.style.cssText =
-      'animation-name: moveDown; animation-duration: 2s; animation-iteration-count: infinite;';
+    const arrow = document.querySelector('.showDirection');
+    arrow.style.cssText = 'animation-name: moveDown; animation-duration: 2s; animation-iteration-count: infinite;';
   }
 
   speakName() {
@@ -92,6 +93,51 @@ class RandomPokemon {
     return h1;
   }
 
+  createEventArrowDown() {
+    const arrow = document.querySelector('.showDirection');
+
+    arrow.addEventListener('click', () => {
+      const information = document.querySelector('.informationHolder');
+      information.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  addInformation() {
+    document.body.style.height = '190vh';
+    document.body.style.gridTemplate = '30vh 60vh 10vh 90vh / 100vw';
+    const div = document.createElement('div');
+    const arrow = document.createElement('i');
+    const classes = ['fas', 'fa-arrow-circle-up', 'showDirection'];
+    arrow.classList.add(...classes);
+
+    div.classList.add('informationHolder');
+
+    for (let i = 0; i < 3; i++) {
+      const paragraph = document.createElement('p');
+
+      switch (i) {
+        case 0:
+          paragraph.textContent = this.types.join('-');
+          break;
+        case 1:
+          paragraph.textContent = this.abilities.join('-');
+          break;
+        case 2:
+          paragraph.textContent = super.getEvolution().join('-');
+          break;
+        default:
+          paragraph.textContent = 'Brak informacji';
+      }
+
+      div.appendChild(paragraph);
+    }
+
+    div.appendChild(arrow);
+    document.body.appendChild(div);
+
+    this.createEventArrowDown();
+  }
+
   addPokemon() {
     const main = document.querySelector('.pokemonRandom');
     const div = document.createElement('div');
@@ -102,21 +148,20 @@ class RandomPokemon {
     div.appendChild(this.createImagePokemon());
 
     main.appendChild(div);
-    main.innerHTML +=
-      '<i class="fas fa-arrow-circle-down pokemonRandom__showDirection"></i>';
+    main.innerHTML += '<i class="fas fa-arrow-circle-down showDirection"></i>';
 
     this.showName();
     this.showPokemon();
     this.speakName();
     this.animateArrow();
+    this.addInformation();
   }
 
   fallPokeball() {
     const main = document.querySelector('.pokemonRandom');
     const mainWidth = main.offsetWidth;
 
-    const jumpHeight =
-      mainWidth > 500 && mainWidth < 1024 && mainWidth !== 768 ? '75%' : '25vh';
+    const jumpHeight = mainWidth > 500 && mainWidth < 1024 && mainWidth !== 768 ? '75%' : '25vh';
 
     const tl = gsap.timeline();
 
@@ -160,6 +205,8 @@ class RandomPokemon {
         this.setName(res.name);
         this.pushType(res.types);
         this.pushAbilities(res.abilities);
+        super.setSpeciesLink(res.species.url);
+        super.downloadEvolutionsChain();
 
         const intervalId = setInterval(() => {
           if (this.isAnimationEnd) {
