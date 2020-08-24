@@ -9,6 +9,10 @@ class RandomPokemon extends Evolution {
     this.isAnimationEnd = false;
     this.types = [];
     this.abilities = [];
+
+    window.addEventListener('resize', () => {
+      this.setBodyGridTemplate();
+    });
   }
 
   getName() {
@@ -57,7 +61,8 @@ class RandomPokemon extends Evolution {
 
   animateArrow() {
     const arrow = document.querySelector('.showDirection');
-    arrow.style.cssText = 'animation-name: moveDown; animation-duration: 2s; animation-iteration-count: infinite;';
+    arrow.style.cssText =
+      'animation-name: moveDown; animation-duration: 2s; animation-iteration-count: infinite;';
   }
 
   speakName() {
@@ -93,49 +98,89 @@ class RandomPokemon extends Evolution {
     return h1;
   }
 
-  createEventArrowDown() {
-    const arrow = document.querySelector('.showDirection');
+  createEventArrow(goTo, itemNumber) {
+    const arrows = document.querySelectorAll('.showDirection');
 
-    arrow.addEventListener('click', () => {
-      const information = document.querySelector('.informationHolder');
+    arrows[itemNumber].addEventListener('click', () => {
+      const information = document.querySelector(goTo);
       information.scrollIntoView({ behavior: 'smooth' });
     });
   }
 
+  setBodyGridTemplate() {
+    if (document.body.offsetWidth >= 1024) {
+      document.body.style.gridTemplate = '50vh 1fr / 50% 50%';
+      document.querySelector('.imgContainer').style.gridColumn = '1 / 3';
+    } else if (document.body.offsetWidth === 768) {
+      document.body.style.gridTemplate = '30vh 60vh 100vh / 100vw';
+    } else if (document.body.offsetWidth >= 550) {
+      document.body.style.gridTemplate = '30vh 70vh 100vh / 88vw';
+    } else {
+      document.body.style.gridTemplate = '30vh 60vh 10vh 90vh / 100vw';
+    }
+  }
+
   addInformation() {
     document.body.style.height = '190vh';
-    document.body.style.gridTemplate = '30vh 60vh 10vh 90vh / 100vw';
+    this.setBodyGridTemplate();
     const div = document.createElement('div');
     const arrow = document.createElement('i');
     const classes = ['fas', 'fa-arrow-circle-up', 'showDirection'];
     arrow.classList.add(...classes);
+    arrow.style.cssText =
+      'animation-name: moveUp; animation-duration: 2s; animation-iteration-count: infinite; bottom: 2vh;';
 
     div.classList.add('informationHolder');
 
     for (let i = 0; i < 3; i++) {
       const paragraph = document.createElement('p');
+      const headings = document.createElement('h2');
+      const itemDiv = document.createElement('div');
+
+      headings.classList.add('informationHolder__headings');
+      itemDiv.classList.add('informationHolder__item');
 
       switch (i) {
         case 0:
-          paragraph.textContent = this.types.join('-');
+          for (let j = 0; j < this.getTypes().length; j++) {
+            const span = document.createElement('span');
+            span.classList.add(this.getTypes()[j]);
+
+            if (j === this.getTypes().length - 1) {
+              span.textContent = `${this.getTypes()[j]}`;
+            } else {
+              span.textContent = `${this.getTypes()[j]} - `;
+            }
+            paragraph.appendChild(span);
+          }
+          paragraph.classList.add('informationHolder__types');
+          headings.textContent = 'Typ:';
           break;
         case 1:
-          paragraph.textContent = this.abilities.join('-');
+          paragraph.textContent = this.getAbilities().join(' - ');
+          paragraph.classList.add('informationHolder__abilities');
+          headings.textContent = 'Umiejętności:';
           break;
         case 2:
-          paragraph.textContent = super.getEvolution().join('-');
+          paragraph.textContent = super.getEvolution().join(' - ');
+          paragraph.classList.add('informationHolder__evolution');
+          headings.textContent = 'Ewolucje:';
           break;
         default:
           paragraph.textContent = 'Brak informacji';
+          headings.textContent = '';
       }
 
-      div.appendChild(paragraph);
+      itemDiv.appendChild(headings);
+      itemDiv.appendChild(paragraph);
+      div.appendChild(itemDiv);
     }
 
     div.appendChild(arrow);
     document.body.appendChild(div);
 
-    this.createEventArrowDown();
+    this.createEventArrow('.informationHolder', 0);
+    this.createEventArrow('.imgContainer', 1);
   }
 
   addPokemon() {
@@ -161,7 +206,8 @@ class RandomPokemon extends Evolution {
     const main = document.querySelector('.pokemonRandom');
     const mainWidth = main.offsetWidth;
 
-    const jumpHeight = mainWidth > 500 && mainWidth < 1024 && mainWidth !== 768 ? '75%' : '25vh';
+    const jumpHeight =
+      mainWidth > 500 && mainWidth < 1024 && mainWidth !== 768 ? '75%' : '25vh';
 
     const tl = gsap.timeline();
 
