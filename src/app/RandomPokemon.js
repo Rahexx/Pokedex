@@ -120,13 +120,87 @@ class RandomPokemon extends Evolution {
     }
   }
 
+  refreshPage() {
+    const informationHolder = document.querySelector('.informationHolder');
+    const showDirection = document.querySelector('.showDirection');
+    const pokemonContainer = document.querySelector('.pokemonContainer');
+    const button = document.querySelector('.pokemonRandom__randomButton');
+    const pokeball = document.querySelector('.pokemonRandom__pokeball');
+
+    button.disabled = false;
+    button.style.transform = 'scale(1) translate(-50%, -50%) ';
+    pokeball.style.top = '0';
+    pokeball.style.transform = 'translate(-50%, -50%) scale(0)';
+
+    informationHolder.remove();
+    showDirection.remove();
+    pokemonContainer.remove();
+
+    this.types = [];
+    this.abilities = [];
+    this.evolutions = [];
+    this.sourceImagePokemon = '';
+    this.isAnimationEnd = false;
+
+    window.scroll(0, 0);
+    if (document.body.offsetWidth >= 1024) {
+      document.body.style.gridTemplate = '50vh 1fr / 100%';
+      document.body.style.height = '100vh';
+    }
+
+    button.addEventListener('click', () => {
+      this.randomPokemon();
+    });
+  }
+
+  addRefreshEvent() {
+    const refresh = document.querySelector('.refresh');
+
+    refresh.addEventListener('click', () => {
+      this.refreshPage();
+    });
+  }
+
+  addToLocalStorage() {
+    if (!Number(localStorage.getItem('counter') >= 6)) {
+      const icon = document.querySelector('.add');
+      const counter = Number(localStorage.getItem('counter'));
+      localStorage.setItem(
+        this.getName(),
+        `${Number(localStorage.getItem('counter')) + 1} pokemon`,
+      );
+      localStorage.removeItem('counter');
+      localStorage.setItem('counter', counter + 1);
+      icon.classList.remove('fa-plus');
+      icon.classList.add('fa-check');
+    }
+  }
+
   addInformation() {
     document.body.style.height = '190vh';
     this.setBodyGridTemplate();
     const div = document.createElement('div');
     const arrow = document.createElement('i');
-    const classes = ['fas', 'fa-arrow-circle-up', 'showDirection'];
-    arrow.classList.add(...classes);
+    const refresh = document.createElement('i');
+    const addToTeam = document.createElement('i');
+    const arrowClasses = ['fas', 'fa-arrow-circle-up', 'showDirection'];
+    const refreshClasses = ['fas', 'fa-sync-alt', 'refresh'];
+    const addClasses = ['fas', 'add'];
+
+    if (!localStorage.hasOwnProperty('counter')) {
+      localStorage.setItem('counter', 0);
+    }
+
+    if (Number(localStorage.getItem('counter')) === 6) {
+      addClasses.push('fa-times');
+    } else if (localStorage.hasOwnProperty(this.getName())) {
+      addClasses.push('fa-check');
+    } else {
+      addClasses.push('fa-plus');
+    }
+    arrow.classList.add(...arrowClasses);
+    refresh.classList.add(...refreshClasses);
+    addToTeam.classList.add(...addClasses);
     arrow.style.cssText =
       'animation-name: moveUp; animation-duration: 2s; animation-iteration-count: infinite; bottom: 2vh;';
 
@@ -177,10 +251,22 @@ class RandomPokemon extends Evolution {
     }
 
     div.appendChild(arrow);
+    div.appendChild(refresh);
+    div.appendChild(addToTeam);
+
     document.body.appendChild(div);
 
     this.createEventArrow('.informationHolder', 0);
     this.createEventArrow('.imgContainer', 1);
+    this.addRefreshEvent();
+
+    document.querySelector('.add').addEventListener('click', () => {
+      this.addToLocalStorage();
+    });
+
+    if (document.body.offsetWidth >= 1024) {
+      gsap.to('.informationHolder__item', { scale: 1, duration: 1 });
+    }
   }
 
   addPokemon() {
