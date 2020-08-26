@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { gsap } from 'gsap';
 import Evolution from './Evolution';
 
@@ -61,8 +62,7 @@ class RandomPokemon extends Evolution {
 
   animateArrow() {
     const arrow = document.querySelector('.showDirection');
-    arrow.style.cssText =
-      'animation-name: moveDown; animation-duration: 2s; animation-iteration-count: infinite;';
+    arrow.style.cssText = 'animation-name: moveDown; animation-duration: 2s; animation-iteration-count: infinite;';
   }
 
   speakName() {
@@ -108,15 +108,33 @@ class RandomPokemon extends Evolution {
   }
 
   setBodyGridTemplate() {
-    if (document.body.offsetWidth >= 1024) {
-      document.body.style.gridTemplate = '50vh 1fr / 50% 50%';
-      document.querySelector('.imgContainer').style.gridColumn = '1 / 3';
-    } else if (document.body.offsetWidth === 768) {
-      document.body.style.gridTemplate = '30vh 60vh 100vh / 100vw';
-    } else if (document.body.offsetWidth >= 550) {
-      document.body.style.gridTemplate = '30vh 70vh 100vh / 88vw';
-    } else {
-      document.body.style.gridTemplate = '30vh 60vh 10vh 90vh / 100vw';
+    const width = document.body.offsetWidth;
+
+    switch (width) {
+      case width >= 1024:
+        document.body.style.gridTemplate = '50vh 1fr / 50% 50%';
+        document.querySelector('.imgContainer').style.gridColumn = '1 / 3';
+        break;
+      case width === 768:
+        document.body.style.gridTemplate = '30vh 60vh 100vh / 100vw';
+        break;
+      case width >= 550:
+        document.body.style.gridTemplate = '30vh 70vh 100vh / 88vw';
+        break;
+      default:
+        document.body.style.gridTemplate = '30vh 60vh 10vh 90vh / 100vw';
+    }
+  }
+
+  removeElements(...elements) {
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].remove();
+    }
+  }
+
+  emptyArray(...arrays) {
+    for (let i = 0; i < arrays.length; i++) {
+      arrays[i] = [];
     }
   }
 
@@ -132,13 +150,9 @@ class RandomPokemon extends Evolution {
     pokeball.style.top = '0';
     pokeball.style.transform = 'translate(-50%, -50%) scale(0)';
 
-    informationHolder.remove();
-    showDirection.remove();
-    pokemonContainer.remove();
+    this.removeElements(informationHolder, showDirection, pokemonContainer);
+    this.emptyArray(this.types, this.abilities, this.evolutions);
 
-    this.types = [];
-    this.abilities = [];
-    this.evolutions = [];
     this.sourceImagePokemon = '';
     this.isAnimationEnd = false;
 
@@ -165,20 +179,33 @@ class RandomPokemon extends Evolution {
     if (!Number(localStorage.getItem('counter') >= 6)) {
       const icon = document.querySelector('.add');
       const counter = Number(localStorage.getItem('counter'));
+
       localStorage.setItem(
         this.getName(),
         `${Number(localStorage.getItem('counter')) + 1} pokemon`,
       );
       localStorage.removeItem('counter');
       localStorage.setItem('counter', counter + 1);
+
       icon.classList.remove('fa-plus');
       icon.classList.add('fa-check');
     }
   }
 
+  checkPropertyCounterExist() {
+    if (!localStorage.hasOwnProperty('counter')) {
+      localStorage.setItem('counter', 0);
+    }
+  }
+
+  addClassesToElement(element, classes) {
+    element.classList.add(classes);
+  }
+
   addInformation() {
     document.body.style.height = '190vh';
     this.setBodyGridTemplate();
+
     const div = document.createElement('div');
     const arrow = document.createElement('i');
     const refresh = document.createElement('i');
@@ -187,9 +214,7 @@ class RandomPokemon extends Evolution {
     const refreshClasses = ['fas', 'fa-sync-alt', 'refresh'];
     const addClasses = ['fas', 'add'];
 
-    if (!localStorage.hasOwnProperty('counter')) {
-      localStorage.setItem('counter', 0);
-    }
+    this.checkPropertyCounterExist();
 
     if (Number(localStorage.getItem('counter')) === 6) {
       addClasses.push('fa-times');
@@ -198,11 +223,12 @@ class RandomPokemon extends Evolution {
     } else {
       addClasses.push('fa-plus');
     }
-    arrow.classList.add(...arrowClasses);
-    refresh.classList.add(...refreshClasses);
-    addToTeam.classList.add(...addClasses);
-    arrow.style.cssText =
-      'animation-name: moveUp; animation-duration: 2s; animation-iteration-count: infinite; bottom: 2vh;';
+
+    this.addClassesToElement(arrow, ...arrowClasses);
+    this.addClassesToElement(refresh, ...refreshClasses);
+    this.addClassesToElement(addToTeam, ...addClasses);
+
+    arrow.style.cssText = 'animation-name: moveUp; animation-duration: 2s; animation-iteration-count: infinite; bottom: 2vh;';
 
     div.classList.add('informationHolder');
 
@@ -292,8 +318,7 @@ class RandomPokemon extends Evolution {
     const main = document.querySelector('.pokemonRandom');
     const mainWidth = main.offsetWidth;
 
-    const jumpHeight =
-      mainWidth > 500 && mainWidth < 1024 && mainWidth !== 768 ? '75%' : '25vh';
+    const jumpHeight = mainWidth > 500 && mainWidth < 1024 && mainWidth !== 768 ? '75%' : '25vh';
 
     const tl = gsap.timeline();
 
