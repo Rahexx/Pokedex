@@ -15,22 +15,50 @@ export interface GetPokemonDataByUrlRes extends BaseRes {
 }
 
 const pokemonApi = {
-  getPokemonNames: (): Promise<DataID[]> =>
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=2000&offset=0')
-      .then((res) => res.json() as unknown as Promise<GetPokemonNamesRes>)
-      .then((res) => res.results)
-      .catch((err) => {
-        console.error('Problem with fetching pokemon names', err);
-        return [];
-      }),
+  getPokemonNames: async (): Promise<DataID[]> => {
+    try {
+      const response = await fetch(
+        'https://pokeapi.co/api/v2/pokemon?limit=2000',
+        {
+          next: { tags: ['pokemonNames'] },
+        },
+      );
+      const data = (await response.json()) as GetPokemonNamesRes;
+      return data.results;
+    } catch (err) {
+      console.error('Problem with fetching pokemon names', err);
+      return [];
+    }
+  },
 
-  getPokemonDataByUrl: (url: string) =>
-    fetch(url)
-      .then((res) => res.json() as unknown as Promise<PokemonInfo>)
-      .catch((err) => {
-        console.error('Problem with fetching pokemons info', err);
-        return null;
-      }),
+  getPokemonsData: async (names: string[]) => {
+    const results = [];
+
+    for (let i = 0; i < names.length; i += 10) {
+      const batch = names.slice(i, i + 10);
+      const promises = batch.map((name) =>
+        fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, {
+          next: { tags: ['favoritePokemons'] },
+        }).then((res) => res.json() as Promise<PokemonInfo>),
+      );
+
+      try {
+        const batchResults = await Promise.all(promises);
+        results.push(...batchResults);
+      } catch (error) {
+        console.error('Error fetching batch:', error);
+      }
+    }
+
+    return results;
+  },
+
+  getFavorite: async () => {
+    const res = await fetch('http://localhost:3000/api', {
+      next: { tags: ['favoritePokemons'] },
+    });
+    return res.json();
+  },
 };
 
 export default pokemonApi;

@@ -10,10 +10,15 @@ interface NavLinkProps {
 
 export default function NavLink({ href, children }: NavLinkProps) {
   const path = usePathname();
+  const isActive = path.startsWith(href);
 
   return (
-    <li className='mx-4 mt-2 sm:mt-0 text-xl sm:text-base'>
-      <Link href={href} className={path.startsWith(href) ? 'active' : ''}>
+    <li
+      className={`mx-4 mt-2 sm:mt-0 text-xl sm:text-base duration-500 ${
+        isActive ? 'text-yellow-300' : 'hover:text-yellow-300'
+      }`}
+    >
+      <Link href={href} className={isActive ? 'active' : ''}>
         {children}
       </Link>
     </li>
