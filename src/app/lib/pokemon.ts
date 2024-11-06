@@ -17,8 +17,24 @@ export const addToFavorite = async (pokemonName: string) => {
       body: JSON.stringify({ name: pokemonName }),
     });
 
-    revalidateTag('favoritePokemons');
+    return true;
   } catch (err) {
     console.log('error', err);
+    return false;
+  }
+};
+
+export const deleteFromFavorite = async (pokemonName: string) => {
+  try {
+    await fetch('http://localhost:3000/api', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: pokemonName }),
+    });
+
+    return false;
+  } catch (err) {
+    console.log('error', err);
+    return true;
   }
 };
