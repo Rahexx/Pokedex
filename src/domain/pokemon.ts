@@ -39,7 +39,7 @@ interface PokemonSprites {
   front_shiny_female: Nullable<string>;
 }
 
-interface PokemonType {
+export interface PokemonType {
   slot: number;
   type: DataID;
 }

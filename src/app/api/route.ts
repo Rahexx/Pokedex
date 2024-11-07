@@ -4,7 +4,9 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  orderBy,
   query,
+  updateDoc,
   where,
 } from 'firebase/firestore';
 import { NextResponse } from 'next/server';
@@ -12,7 +14,12 @@ import { db } from '../../../firebaseConfig';
 
 export async function GET() {
   try {
-    const querySnapshot = await getDocs(collection(db, 'favoritePokemons'));
+    const q = query(
+      collection(db, 'favoritePokemons'),
+      where('type', '==', 'water'),
+      orderBy('name', 'asc'),
+    );
+    const querySnapshot = await getDocs(q);
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
@@ -42,7 +49,32 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    addDoc(collection(db, 'favoritePokemons'), { name: body.name });
+    addDoc(collection(db, 'favoritePokemons'), {
+      name: body.name,
+      type: body.type,
+    });
+
+    return NextResponse.json({ info: true });
+  } catch (err) {
+    const errorMessage =
+      err instanceof Error ? err.message : 'Unknown error occurred';
+
+    return NextResponse.json(
+      { error: errorMessage ?? 'Internal error' },
+      { status: 500 },
+    );
+  }
+}
+
+export async function PUT(req: Request) {
+  try {
+    const body = await req.json();
+
+    if (!body.id)
+      return NextResponse.json({ error: 'Id is required' }, { status: 500 });
+
+    const pokemonRef = doc(db, 'favoritePokemons', body.id);
+    updateDoc(pokemonRef, { type: 'fire' });
 
     return NextResponse.json({ info: true });
   } catch (err) {

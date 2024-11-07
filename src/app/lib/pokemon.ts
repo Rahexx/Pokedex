@@ -1,6 +1,5 @@
 'use server';
 import pokemonApi from './pokemonApi';
-import { revalidateTag } from 'next/cache';
 
 export const fetchPokemons = async () => {
   const listOfNames = await pokemonApi.getPokemonNames();
@@ -9,12 +8,12 @@ export const fetchPokemons = async () => {
   return pokemonsData;
 };
 
-export const addToFavorite = async (pokemonName: string) => {
+export const addToFavorite = async (pokemonName: string, type: string) => {
   try {
     await fetch('http://localhost:3000/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: pokemonName }),
+      body: JSON.stringify({ type, name: pokemonName }),
     });
 
     return true;
@@ -36,5 +35,17 @@ export const deleteFromFavorite = async (pokemonName: string) => {
   } catch (err) {
     console.log('error', err);
     return true;
+  }
+};
+
+export const updatePokemonType = async (id: string) => {
+  try {
+    await fetch('http://localhost:3000/api', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+  } catch (err) {
+    console.log('put error', err);
   }
 };

@@ -5,10 +5,13 @@ import pokemonApi from './lib/pokemonApi';
 
 export default async function Home() {
   const data = await pokemonApi.getFavorite();
+  const favoriteMap = new Map<string, string>();
   const favoritePokemons = data.data.map(
-    (data: { id: string; name: string }) => data.name,
+    (data: { id: string; name: string }) => {
+      favoriteMap.set(data.name, data.id);
+      return data.name;
+    },
   );
-
   const listOfPokemons = await fetchPokemons();
 
   return (
@@ -29,7 +32,9 @@ export default async function Home() {
             >
               <Favorite
                 name={pokemon.name}
+                types={pokemon.types}
                 isFavorite={favoritePokemons.includes(pokemon.name)}
+                favoriteId={favoriteMap.get(pokemon.name) ?? ''}
               />
               {pokemon.sprites.front_default && (
                 <Image

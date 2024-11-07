@@ -56,6 +56,7 @@ const pokemonApi = {
   getFavorite: async () => {
     const res = await fetch('http://localhost:3000/api', {
       next: { tags: ['favoriteList'] },
+      cache: 'no-store',
     });
     return res.json();
   },
