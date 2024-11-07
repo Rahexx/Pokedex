@@ -2,14 +2,14 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-interface SignInForm {
+interface SignUpForm {
   email: string;
   password: string;
   isPending: boolean;
 }
 
-export default function SignIn() {
-  const [formState, setFormState] = useState<SignInForm>({
+export default function SignUp() {
+  const [formState, setFormState] = useState<SignUpForm>({
     email: '',
     password: '',
     isPending: false,
@@ -18,7 +18,7 @@ export default function SignIn() {
   return (
     <div className='h-96 w-80 p-5 px-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-50 rounded-2xl'>
       <h1 className='block w-full text-3xl text-center text-slate-950'>
-        Sign in
+        Sign Up
       </h1>
       <form className='flex flex-col mt-7'>
         <div className='flex flex-col'>
@@ -31,7 +31,6 @@ export default function SignIn() {
             value={formState.email}
             placeholder='Email....'
             className='p-2 border border-gray-300 focus:border-amber-700 rounded-lg focus:outline-none'
-            disabled={formState.isPending}
             onChange={(e) =>
               setFormState((prev) => ({ ...prev, email: e.target.value }))
             }
@@ -47,24 +46,22 @@ export default function SignIn() {
             value={formState.password}
             className='p-2 border border-gray-300 focus:border-amber-700 rounded-lg focus:outline-none'
             placeholder='Password....'
-            disabled={formState.isPending}
             onChange={(e) =>
               setFormState((prev) => ({ ...prev, password: e.target.value }))
             }
           />
         </div>
         <button
-          className='w-32 h-9 mt-7 mx-auto px-6 py-2 bg-red-800 text-stone-100 uppercase font-semibold rounded-lg'
-          disabled={formState.isPending}
+          className='w-32 h-9 mt-7 mx-auto px-6 py-2 bg-red-800 text-stone-100 uppercase font-semibold rounded-lg outline-0 focus-visible:outline-2'
           aria-label='sign in'
         >
-          {formState.isPending ? 'Signing in...' : 'Sign In'}
+          {formState.isPending ? 'Signing Up...' : 'Sign Up'}
         </button>
       </form>
       <p className='mt-4 text-slate-700	text-sm text-center'>
-        If you want do not have account, please
-        <Link href={'/signUp'} className='text-red-600 font-semibold ml-1'>
-          Sign Up
+        If you have account already, please
+        <Link href={'/signIn'} className='text-red-600 font-semibold ml-1'>
+          Sign In
         </Link>
       </p>
     </div>
