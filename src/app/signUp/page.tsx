@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
+import { signUpUser } from '../lib/authentication';
+import { useRouter } from 'next/navigation';
 
 interface SignUpForm {
   email: string;
@@ -9,18 +11,30 @@ interface SignUpForm {
 }
 
 export default function SignUp() {
+  const router = useRouter();
   const [formState, setFormState] = useState<SignUpForm>({
     email: '',
     password: '',
     isPending: false,
   });
 
+  const handleSignUp = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormState((prev) => ({ ...prev, isPending: true }));
+    const res = await signUpUser(formState.email, formState.password);
+
+    if (res) {
+      router.push('/');
+      setFormState({ email: '', password: '', isPending: false });
+    }
+  };
+
   return (
     <div className='h-96 w-80 p-5 px-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-50 rounded-2xl'>
       <h1 className='block w-full text-3xl text-center text-slate-950'>
         Sign Up
       </h1>
-      <form className='flex flex-col mt-7'>
+      <form className='flex flex-col mt-7' onSubmit={handleSignUp}>
         <div className='flex flex-col'>
           <label className='mb-2' htmlFor='email'>
             Email:

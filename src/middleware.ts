@@ -5,7 +5,7 @@ export async function middleware(req: Request) {
   const cookieStore = await cookies();
   const token = cookieStore.get('token');
 
-  if (!token && !req.url.includes('/signIn') && !req.url.includes('/signUp')) {
+  if (!token) {
     return NextResponse.redirect(new URL('/signIn', req.url));
   }
 
