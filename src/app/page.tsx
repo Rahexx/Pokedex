@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { fetchPokemons } from './lib/pokemon';
 import Favorite from './componentes/Favorite/Favorite';
 import pokemonApi from './lib/pokemonApi';
+import Link from 'next/link';
 
 export default async function Home() {
   const data = await pokemonApi.getFavorite();
@@ -26,7 +27,8 @@ export default async function Home() {
           }
 
           return (
-            <div
+            <Link
+              href={`/${pokemon.name}`}
               className='relative flex flex-col h-28	w-28 m-8 cursor-pointer'
               key={pokemon.id}
             >
@@ -45,7 +47,7 @@ export default async function Home() {
                 />
               )}
               <p className='text-center capitalize'>{pokemon.name}</p>
-            </div>
+            </Link>
           );
         })}
       </div>

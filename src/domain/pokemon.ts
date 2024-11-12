@@ -6,7 +6,7 @@ export interface DataID {
 }
 
 export interface PokemonInfo {
-  ability: PokemonAbility;
+  abilities: PokemonAbility[];
   base_experience: number;
   cries: {
     latest: string;

@@ -53,6 +53,11 @@ const pokemonApi = {
     return results;
   },
 
+  getPokemonInfo: async (name: string) =>
+    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, {
+      next: { tags: ['pokemonInfo'] },
+    }).then((res) => res.json() as Promise<PokemonInfo>),
+
   getFavorite: async () => {
     const res = await fetch('http://localhost:3000/api', {
       next: { tags: ['favoriteList'] },

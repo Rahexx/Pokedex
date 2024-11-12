@@ -49,3 +49,12 @@ export const updatePokemonType = async (id: string) => {
     console.log('put error', err);
   }
 };
+
+export const getPokemonDetails = async (name: string) => {
+  try {
+    const res = await pokemonApi.getPokemonInfo(name);
+    return res;
+  } catch (err) {
+    console.log(`Fetching ${name} info failed`, err);
+  }
+};
