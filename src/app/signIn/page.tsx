@@ -30,7 +30,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className='h-96 w-80 p-5 px-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-50 rounded-2xl'>
+    <div className='h-96 w-80 p-5 px-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-50	shadow-signModal  rounded-2xl'>
       <h1 className='block w-full text-3xl text-center text-slate-950'>
         Sign in
       </h1>
