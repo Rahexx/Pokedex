@@ -9,23 +9,22 @@ import {
   updateDoc,
   where,
 } from 'firebase/firestore';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { db } from '../../../firebaseConfig';
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
-    const q = query(
-      collection(db, 'favoritePokemons'),
-      where('type', '==', 'water'),
-      orderBy('name', 'asc'),
-    );
+    const token = req.headers.get('Authorization')?.replace('Bearer ', '');
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const q = query(collection(db, 'favoritePokemons'), orderBy('name', 'asc'));
     const querySnapshot = await getDocs(q);
     const data = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-
-    console.log('Data', data);
 
     return NextResponse.json(
       { data },

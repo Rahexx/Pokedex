@@ -1,4 +1,5 @@
 import { DataID, PokemonInfo } from '@/domain/pokemon';
+import { cookies } from 'next/headers';
 
 interface BaseRes {
   count: number;
@@ -59,9 +60,15 @@ const pokemonApi = {
     }).then((res) => res.json() as Promise<PokemonInfo>),
 
   getFavorite: async () => {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token');
     const res = await fetch('http://localhost:3000/api', {
       next: { tags: ['favoriteList'] },
       cache: 'no-store',
+      headers: {
+        Authorization: `Bearer ${token?.value || ''}`,
+        'Content-Type': 'application/json',
+      },
     });
     return res.json();
   },
