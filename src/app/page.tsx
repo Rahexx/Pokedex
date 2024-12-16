@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default async function Home() {
   const data = await pokemonApi.getFavorite();
   const favoriteMap = new Map<string, string>();
-  const favoritePokemons = data.data.map(
+  const favoritePokemons = data?.data?.map(
     (data: { id: string; name: string }) => {
       favoriteMap.set(data.name, data.id);
       return data.name;

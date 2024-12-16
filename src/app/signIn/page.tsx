@@ -4,6 +4,7 @@ import { FormEvent, useState } from 'react';
 import { handleLogIn } from '../lib/authentication';
 import { useRouter } from 'next/navigation';
 import { z } from 'zod';
+import { Button } from '@/components/ui/button';
 
 interface SignInForm {
   email: string;
@@ -95,13 +96,10 @@ export default function SignIn() {
           />
         </div>
         {formState.error && <p className='text-red-600	'>{formState.error}</p>}
-        <button
-          className='w-32 h-9 mt-7 mx-auto px-6 py-2 bg-red-800 text-stone-100 uppercase font-semibold rounded-lg'
-          disabled={formState.isPending}
-          aria-label='sign in'
-        >
+        <Button disabled={formState.isPending} aria-label='sign in'>
           {formState.isPending ? 'Signing in...' : 'Sign In'}
-        </button>
+        </Button>
+        {/* <button className='w-32 h-9 mt-7 mx-auto px-6 py-2 bg-red-800 text-stone-100 uppercase font-semibold rounded-lg'></button> */}
       </form>
       <p className='mt-4 text-slate-700	text-sm text-center'>
         If you want do not have account, please

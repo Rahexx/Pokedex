@@ -25,6 +25,8 @@ export async function GET() {
       ...doc.data(),
     }));
 
+    console.log('Data', data);
+
     return NextResponse.json(
       { data },
       {
