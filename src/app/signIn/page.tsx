@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { FormEvent, useState } from 'react';
 import { handleLogIn } from '../lib/authentication';
 import { useRouter } from 'next/navigation';
+import { z } from 'zod';
 
 interface SignInForm {
   email: string;
   password: string;
   isPending: boolean;
+  error: string;
 }
 
 export default function SignIn() {
@@ -16,16 +18,41 @@ export default function SignIn() {
     email: '',
     password: '',
     isPending: false,
+    error: '',
+  });
+
+  const signFormSchema = z.object({
+    email: z.string().email('Invalid email format'),
+    password: z.string().min(6, 'Password must be at least 6 characters long'),
   });
 
   const handleLogger = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const parseRes = signFormSchema.safeParse({
+      email: formState.email,
+      password: formState.password,
+    });
+
+    if (!parseRes.success) {
+      setFormState({
+        ...formState,
+        error: parseRes.error.errors.map((err) => err.message).join(', '),
+      });
+      return;
+    }
+
     setFormState((prev) => ({ ...prev, isPending: true }));
     const res = await handleLogIn(formState.email, formState.password);
 
     if (res) {
       router.push('/');
-      setFormState({ email: '', password: '', isPending: false });
+      setFormState({ email: '', password: '', isPending: false, error: '' });
+    } else {
+      setFormState((prev) => ({
+        ...prev,
+        error: 'Your email or password are invalid',
+      }));
     }
   };
 
@@ -67,6 +94,7 @@ export default function SignIn() {
             }
           />
         </div>
+        {formState.error && <p className='text-red-600	'>{formState.error}</p>}
         <button
           className='w-32 h-9 mt-7 mx-auto px-6 py-2 bg-red-800 text-stone-100 uppercase font-semibold rounded-lg'
           disabled={formState.isPending}
